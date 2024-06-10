@@ -29,7 +29,8 @@ This module provides simple functions to perform Simple and Multiple Linear Regr
 Features
 ResumenNumerico Class: ...
 ResumenGrafico Class: ...
-Installation
-Clone this repository:
 
-Run the mydatalab.py file
+## Installation
+1. Clone this repository:
+
+2. Run the mydatalab.py file
