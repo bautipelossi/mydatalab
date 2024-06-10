@@ -10,6 +10,9 @@ Este módulo proporciona funciones simples para realizar Regresión Lineal Simpl
 
 - Clase ResumenNumerico: ...
 - Clase ResumenGrafico: ...
+- Clase Cualitativas: Test de bondad de ajuste mediante Método de Chi Cuadrado
+        Entradas: observados = datos muestrales
+                  probabilidades = probabilidades teóricas bajo la hipótesis nula
 
 ## Instalación
 
