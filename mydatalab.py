@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
@@ -235,6 +232,19 @@ class RegresionLinealMultiple(Regresion):
 
       return res.predict(X_new)
 
+class RegresionLogistica(Regresion):
+
+    def __init__(self, x, y):
+      super().__init__(x, y)
+
+    def predecir(self, new_x):
+      miRLog = Regresion(self.x, self.y)
+      res = miRLog.ajustar_modelo_logistico()
+      X_new = sm.add_constant(new_x)
+
+      return res.predict(X_new)
+   
+  
 class Cualitativas:
     def __init__(self, observados, probabilidades):
         """
