@@ -1,5 +1,6 @@
 ## About(Spanish)
 MyDataLab es un proyecto final de la cátedra "Ciencia de Datos III" de la Facultad de Ingeniería Química de la Universidad Nacional del Litoral (Santa Fe, Argentina). 
+
 Autores: Bautista Pelossi y Franco Vismara
 
 ## Descripción
@@ -8,11 +9,12 @@ Este módulo proporciona funciones simples para realizar Regresión Lineal Simpl
 
 ## Características
 
-- Clase ResumenNumerico: ...
-- Clase ResumenGrafico: ...
-- Clase Cualitativas: Test de bondad de ajuste mediante Método de Chi Cuadrado
-        Entradas: observados = datos muestrales
-                  probabilidades = probabilidades teóricas bajo la hipótesis nula
+
+- Clase ResumenNumerico: Procede a realizar resumen numérico con principales estadísticos (media, mediana, desvío estandar y maximo y minimo)
+- Clase ResumenGrafico:
+- Class RegresiónLineal:
+- Class Cualitativas: Test de bondad para estadístico Chi-Cuadrado
+
 
 ## Instalación
 
@@ -31,7 +33,8 @@ This module provides simple functions to perform Simple and Multiple Linear Regr
 Features
 ResumenNumerico Class: ...
 ResumenGrafico Class: ...
-Installation
-Clone this repository:
 
-Run the mydatalab.py file
+## Installation
+1. Clone this repository:
+
+2. Run the mydatalab.py file
