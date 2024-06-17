@@ -186,33 +186,89 @@ class GeneradoraDeDatos:
 
 
 class Regresion:
-  def __init__(self,x,y):
-    self.x = x
-    self.y = y
+    """
+    Clase que ajusta el modelo lineal (simple o multiple) o el modelo logístico.
+    Atributos:
+        x (np.ndarray): Variable/s predictora/s.
+        y (np.ndarray): Variable que se intenta explicar.
+    """
+    def __init__(self, x, y):
+        """
+        Inicializa una instancia de la clase Regresion.
+        Args:
+            x (np.ndarray): Matriz de características.
+            y (np.ndarray): Vector de valores objetivo.
+        """
+        self.x = x
+        self.y = y
 
-  def ajustar_modelo_lineal(self):
-    X = sm.addconstant(self.x)
-    model = sm.OLS(self.y,X)
-    result = model.fit()
+    def ajustar_modelo_lineal(self):
+        """
+        Ajusta el modelo de regresión lineal usando la librería statsmodels.
+        
+        Returns:
+            result: El resultado del ajuste del modelo.
+        """
+        X = sm.add_constant(self.x)
+        model = sm.OLS(self.y, X)
+        result = model.fit()
+        return result
 
-  def ajustar_modelo_logistico(self):
-    X = sm.add_constant(self.x)
-    modelo = sm.Logit(self.y, X)
-    result = modelo.fit()
+    def ajustar_modelo_logistico(self):
+        """
+        Ajusta el modelo de regresión logistica usando la librería statsmodels.
+
+        Returns:
+            result: El resultado del ajuste del modelo.
+        """
+        X = sm.add_constant(self.x)
+        model = sm.Logit(self.y, X)
+        result = model.fit()
+        return result
 
 
 class RegresionLinealSimple(Regresion):
+    """
+    Clase que predice la variable respuesta a partir de un nuevo valor de la variable explicativa 
+    mediante el modelo lineal ajustado con la clase Regresion. También grafica la recta ajustada.
+    Atributos:
+        x (np.ndarray): Variable predictora.
+        y (np.ndarray): Variable que se intenta explicar.
+    """
     def __init__(self, x, y):
-      super().__init__(x, y)
+        """
+        Inicializa una instancia de la clase RegresionLinealSimple.
+        Args:
+            x (np.ndarray): Variable predictora.
+            y (np.ndarray): Variable que se intenta explicar.
+        """
+        super().__init__(x, y)
 
     def predecir(self, new_x):
-      miRLS = Regresion(self.x, self.y)
-      res = miRLS.ajustar_modelo_lineal()
-      X_new = sm.add_constant(new_x)
-
-      return res.predict(X_new)
+        """
+        Predice el valor de la variable respuesta ante un nuevo valor de la variable explicativa (new_x) 
+        mediante el modelo de regresión lineal simple usando la librería statsmodels.
+        
+        Args:
+            new_x (np.ndarray): Nuevo valor de la variable predictora.
+            
+        Returns:
+            np.ndarray: Predicciones del modelo.
+        
+        Ejemplo:
+            >>> x = np.array([[3], [5], [6]])
+            >>> y = np.array([2, 4, 6])
+            >>> model = RegresionLinealSimple(x, y)
+            >>> model.predecir(np.array([[7]]))
+        """
+        miRLS = self.ajustar_modelo_lineal()
+        X_new = sm.add_constant(new_x)
+        return miRLS.predict(X_new)
 
     def graficar_recta_ajustada(self):
+        """
+        Grafica la recta ajustada mediante el modelo de regresión lineal simple junto con el diagrama de dispersión.
+        """
         res = self.ajustar_modelo_lineal()
         plt.scatter(self.x, self.y, color='blue', label='Datos')
         plt.plot(self.x, res.predict(sm.add_constant(self.x)), color='red', label='Recta Ajustada')
@@ -221,28 +277,84 @@ class RegresionLinealSimple(Regresion):
         plt.legend()
         plt.show()
 
+
 class RegresionLinealMultiple(Regresion):
+    """
+    Clase que predice la variable respuesta a partir de un nuevo valor de la variable explicativa mediante el modelo lineal ajustado 
+    con la clase Regresion.
+    Atributos:
+        x (np.ndarray): Variables predictoras.
+        y (np.ndarray): Variable que se intenta explicar.
+    """
     def __init__(self, x, y):
-      super().__init__(x, y)
+        """
+        Inicializa una instancia de la clase RegresionLinealMultiple.
+        Args:
+            x (np.ndarray): Variables predictoras.
+            y (np.ndarray): Variable que se intenta explicar.
+        """
+        super().__init__(x, y)
 
     def predecir(self, new_x):
-      miRLM = Regresion(self.x, self.y)
-      res = miRLM.ajustar_modelo_lineal()
-      X_new = sm.add_constant(new_x)
+        """
+        Predice el valor de la variable respuesta ante un nuevo vector de las variables explicativas (new_x) 
+        mediante el modelo de regresión lineal multiple usando la librería statsmodels.
+        
+        Args:
+            new_x (np.ndarray): Nuevo valor de las variables predictoras.
+            
+        Returns:
+            np.ndarray: Predicciones del modelo.
+        
+        Ejemplo:
+            >>> x = np.array([[3, 2], [5, 4], [6, 5]])
+            >>> y = np.array([2, 4, 6])
+            >>> model = RegresionLinealMultiple(x, y)
+            >>> model.predecir(np.array([[7, 6]]))
+        """
+        miRLM = self.ajustar_modelo_lineal()
+        X_new = sm.add_constant(new_x)
+        return miRLM.predict(X_new)
 
-      return res.predict(X_new)
 
 class RegresionLogistica(Regresion):
-
+    """
+    Clase que predice la variable respuesta a partir de un nuevo valor de la variable explicativa mediante el modelo logístico ajustado 
+    con la clase Regresion.
+    Atributos:
+        x (np.ndarray): Variables predictoras.
+        y (np.ndarray): Variable que se intenta explicar.
+    """
     def __init__(self, x, y):
-      super().__init__(x, y)
+        """
+        Inicializa una instancia de la clase RegresionLogistica.
+        Args:
+            x (np.ndarray): Variables predictoras.
+            y (np.ndarray): Variable que se intenta explicar.
+        """
+        super().__init__(x, y)
 
     def predecir(self, new_x):
-      miRLog = Regresion(self.x, self.y)
-      res = miRLog.ajustar_modelo_logistico()
-      X_new = sm.add_constant(new_x)
+        """
+        Predice el valor de la variable respuesta ante un nuevo vector de las variables explicativas (new_x) 
+        mediante el modelo logístico usando la librería statsmodels.
+        
+        Args:
+            new_x (np.ndarray): Nuevo valor de las variables predictoras.
+            
+        Returns:
+            np.ndarray: Predicciones del modelo.
+        
+        Ejemplo:
+            >>> x = np.array([[3, 2], [5, 4], [6, 5]])
+            >>> y = np.array([0, 1, 1])
+            >>> model = RegresionLogistica(x, y)
+            >>> model.predecir(np.array([[7, 6]]))
+        """
+        miRLog = self.ajustar_modelo_logistico()
+        X_new = sm.add_constant(new_x)
+        return miRLog.predict(X_new)
 
-      return res.predict(X_new)
    
   
 class Cualitativas:
