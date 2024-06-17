@@ -11,7 +11,8 @@ Este módulo proporciona funciones simples para realizar Regresión Lineal Simpl
 
 - Clase ResumenNumerico: Procede a realizar resumen numérico con principales estadísticos (media, mediana, desvío estandar y maximo y minimo)
 - Clase ResumenGrafico:
-- Class RegresiónLineal:
+- Class Regresion: Ajusta el modelo de regresión, ya sea lineal (simple o múltiple) o logístico.
+- Class RegresionLineal
 - Class Cualitativas: Test de bondad para estadístico Chi-Cuadrado
 
 ## Instalación
