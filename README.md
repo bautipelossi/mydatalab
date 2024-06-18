@@ -35,13 +35,13 @@ Authors: Bautista Pelossi and Franco Vismara
 This library provides simple functions to perform Simple and Multiple Linear Regression, Logistic Regression, Chi-Square Goodness-of-Fit Test, and generate histograms.
 
 Features
-Clase ResumenNumerico: Performs a numeric summary with key statistics (mean, median, standard deviation, maximum, and minimum).
-Clase ResumenGrafico: Includes three widely used graphical summaries in statistics: histogram, kernel density estimation, and QQ-Plot.
-Class Regresion: Fits regression models, whether linear (simple or multiple) or logistic.
-Class RegresionLinealSimple: Predicts a response value for a new explanatory variable using the simple linear regression model fitted in the Regresion Class.
-Class RegresionLinealMultiple: Predicts a response value for a new vector of explanatory variables using the multiple linear regression model fitted in the Regresion Class.
-Class RegresionLogistica: Predicts a response value for a new explanatory variable using the logistic regression model fitted in the Regresion Class.
-Class Cualitativas: Goodness-of-fit test for Chi-Square statistic.
+-Clase ResumenNumerico: Performs a numeric summary with key statistics (mean, median, standard deviation, maximum, and minimum).
+-Clase ResumenGrafico: Includes three widely used graphical summaries in statistics: histogram, kernel density estimation, and QQ-Plot.
+-Class Regresion: Fits regression models, whether linear (simple or multiple) or logistic.
+-Class RegresionLinealSimple: Predicts a response value for a new explanatory variable using the simple linear regression model fitted in the Regresion Class.
+-Class RegresionLinealMultiple: Predicts a response value for a new vector of explanatory variables using the multiple linear regression model fitted in the Regresion Class.
+-Class RegresionLogistica: Predicts a response value for a new explanatory variable using the logistic regression model fitted in the Regresion Class.
+-Class Cualitativas: Goodness-of-fit test for Chi-Square statistic.
 
 ## Installation
 1. Clone this repository:
