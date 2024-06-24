@@ -251,7 +251,7 @@ class ResumenGrafico:
 
     def miqqplot(self):
         """
-        Genera un gráfico QQ (quantile-quantile plot) para comparar la distribución de los datos con una distribución normal.
+        Genera un gráfico QQ (quantile-quantile plot) para comparar la distribución de los datos.
         """
         media = np.mean(self.datos)
         desvio = np.std(self.datos)
