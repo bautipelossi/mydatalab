@@ -11,7 +11,7 @@ import pandas as pd
 
 class ResumenNumerico:
     """
-    Clase para calcular y resumir medidas estadísticas clave de un conjunto de datos.
+    Clase para calcular y resumir alguna de las medidas estadísticas más utilizadas de un conjunto de datos.
 
     Atributos:
         datos (np.ndarray): El conjunto de datos para el que se genera el resumen numérico.
