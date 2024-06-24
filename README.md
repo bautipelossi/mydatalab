@@ -9,6 +9,7 @@ Esta librería proporciona funciones simples para realizar Regresión Lineal Sim
 
 ## Características
 
+
 - Clase ResumenNumerico: Procede a realizar resumen numérico con principales estadísticos (media, mediana, desvío estandar y maximo y minimo)
 - Clase ResumenGrafico: Consta de tres posibles resumenes gráficos ampliamente utilizados en estadística: el histograma, los nucleos Kernel y QQ-Plot
 - Clase Regresion: Ajusta el modelo de regresión, ya sea lineal (simple o múltiple) o logístico.
@@ -19,6 +20,7 @@ Esta librería proporciona funciones simples para realizar Regresión Lineal Sim
 - Clase RegresionLogistica: Predice un valor de respuesta ante un nuevo valor de la variable explicativa
   mediante el modelo de regresion logístico ajustado en la clase Regresión.
 - Clase Cualitativas: Test de bondad para estadístico Chi-Cuadrado
+
 
 ## Instalación
 
