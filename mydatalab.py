@@ -21,7 +21,7 @@ class ResumenNumerico:
         Inicializa la clase ResumenNumerico con el conjunto de datos.
 
         Args:
-            datos (array-like): Datos de entrada.
+            datos (array): Conjunto de datos de entrada.
         """
         self.datos = np.array(datos)
 
