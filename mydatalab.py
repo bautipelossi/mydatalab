@@ -274,21 +274,130 @@ class ResumenGrafico:
         plt.show()
 
 
+import numpy as np
+from scipy.stats import norm
+
 class GeneradoraDeDatos:
+    """
+    Clase que genera datos con diferentes distribuciones.
+    
+    Atributos: 
+        n (int): Cantidad de números a generar
+    """
     def __init__(self, n):
         self.n = n
 
     def generar_datos_dist_norm(self, media, desvio):
+        """
+        Generación de datos distribuidos según la distribución normal.
+
+        Parámetros:
+        ----------
+        media : float
+            Media de la distribución normal.
+        desvio : float
+            Desviación estándar de la distribución normal.
+
+        Retorna:
+        --------
+        numpy.ndarray
+            Un array de numpy que contiene `self.n` datos generados según la distribución normal.
+        """
         datos = np.random.normal(loc=media, scale=desvio, size=self.n)
         return datos
 
     def pdf_norm(self, x, media, desvio):
+        """
+        Calcula la función de densidad de probabilidad (PDF) de una distribución normal.
+
+        Parámetros:
+        ----------
+        x : array-like
+            Valores donde se evalúa la función de densidad de probabilidad.
+        media : float
+            Media de la distribución normal.
+        desvio : float
+            Desviación estándar de la distribución normal.
+
+        Retorna:
+        --------
+        numpy.ndarray
+            Un array que contiene los valores de la PDF de la distribución normal evaluada en cada punto de `x`.
+        """
         distribucion = 1 / (desvio * np.sqrt(2 * np.pi)) * np.exp(-(x - media)**2 / (2 * desvio**2))
         return distribucion
 
     def generar_datos_dist_BS(self):
-        u = np.random.uniform(size=(self
+        """
+        Genera una cantidad `self.n` de datos distribuidos según la distribución Bart Simpson.
 
+        Retorna:
+        --------
+        numpy.ndarray
+            Un array de numpy que contiene `self.n` datos generados según la distribución Bart Simpson.
+        """
+        u = np.random.uniform(size=(self.n,))
+        y = u.copy()
+        ind = np.where(u > 0.5)[0]
+        y[ind] = np.random.normal(0, 1, size=len(ind))
+        for j in range(5):
+            ind = np.where((u > j * 0.1) & (u <= (j+1) * 0.1))[0]
+            y[ind] = np.random.normal(j/2 - 1, 1/10, size=len(ind))
+        return y
+
+    def pdf_bs(self, x):
+        """
+        Calcula la función de densidad de probabilidad (PDF) de la distribución Bart Simpson.
+
+       Arguemento:
+        ----------
+        x : array-like
+            Valores donde se evalúa la función de densidad de probabilidad.
+
+        Returns:
+        --------
+        numpy.ndarray
+            Un array que contiene los valores de la PDF de la distribución Bart Simpson evaluada en cada punto de `x`.
+        """
+        # Generar datos según la distribución Bart Simpson
+        datos_bs = self.generar_datos_dist_BS()
+        
+        # Calcular la PDF
+        pdf_values = np.zeros_like(x, dtype=float)
+        for j in range(5):
+            pdf_values += 0.1 * norm.pdf(x, loc=j/2 - 1, scale=1/10)
+        pdf_values += 0.5 * norm.pdf(x, loc=0, scale=1)
+        
+        return pdf_values
+
+    def generar_datos_uniforme(self, min, max):
+        """
+        Genera una cantidad `self.n` de datos aleatorios distribuidos uniformemente en el intervalo [min, max).
+
+       Argumentos:
+        ----------
+        min : float
+            El valor mínimo del intervalo desde el cual se generarán los datos.
+        max : float
+            El valor máximo del intervalo hasta el cual se generarán los datos.
+
+        Return:
+        --------
+        numpy.ndarray
+            Un array de numpy que contiene `self.n` datos aleatorios uniformemente distribuidos.
+
+        
+        ValueError
+            Si `min` no es menor que `max`.
+
+        Nota: `self.n` debe ser mayor que 0 para generar datos. Si `self.n` es igual a 0, esta función 
+        devolverá un array vacío.
+        """
+        if min >= max:
+            raise ValueError("El valor mínimo 'min' debe ser menor que el valor máximo 'max'.")
+        
+        datos = np.random.uniform(min, max, self.n)
+        return datos
 
 
 class Regresion:
