@@ -1,3 +1,8 @@
+"""
+MyDataLab library
+Data Science - Universidad Nacional del Litoral
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
@@ -5,50 +10,115 @@ import statsmodels.api as sm
 import pandas as pd
 
 class ResumenNumerico:
+    """
+    Clase para calcular y resumir medidas estadísticas clave de un conjunto de datos.
+
+    Atributos:
+        datos (np.ndarray): El conjunto de datos para el que se genera el resumen numérico.
+    """
     def __init__(self, datos):
+        """
+        Inicializa la clase ResumenNumerico con el conjunto de datos.
+
+        Args:
+            datos (array-like): Datos de entrada.
+        """
         self.datos = np.array(datos)
 
     def calculo_de_media(self):
+        """
+        Calcula la media del conjunto de datos.
+
+        Returns:
+            float: Valor de la media.
+        """
         self.media = np.mean(self.datos)
         return self.media
 
     def calculo_de_mediana(self):
+        """
+        Calcula la mediana del conjunto de datos.
+
+        Returns:
+            float: Valor de la mediana.
+        """
         mediana = np.mean(self.datos)
         return mediana
-    def calculo_de_desvio_estandar(self):
-        desvio = np.std(self.datos)
 
+    def calculo_de_desvio_estandar(self):
+        """
+        Calcula el desvío estándar del conjunto de datos.
+
+        Returns:
+            float: Valor del desvío estándar.
+        """
+        desvio = np.std(self.datos)
         return desvio
 
     def calculo_de_cuartiles(self):
+        """
+        Calcula los cuartiles del conjunto de datos.
+
+        Returns:
+            list: Valores de los cuartiles (Q1, Q2, Q3).
+        """
         q1 = np.percentile(self.datos, 25)
         q2 = np.percentile(self.datos, 50)
         q3 = np.percentile(self.datos, 75)
-
         return [q1, q2, q3]
 
     def generacion_resumen_numerico(self):
-        res_num = {
-        'Media': self.calculo_de_media(),
-        'Mediana': self.calculo_de_mediana(),
-        'Desvio': self.calculo_de_desvio_estandar(),
-        'Cuartiles': self.calculo_de_cuartiles(),
-        'Mínimo': min(self.datos),
-        'Máximo': max(self.datos)
-        }
+        """
+        Genera un resumen numérico del conjunto de datos.
 
+        Returns:
+            dict: Resumen numérico con la media, mediana, desvío estándar, cuartiles, mínimo y máximo.
+        """
+        res_num = {
+            'Media': self.calculo_de_media(),
+            'Mediana': self.calculo_de_mediana(),
+            'Desvio': self.calculo_de_desvio_estandar(),
+            'Cuartiles': self.calculo_de_cuartiles(),
+            'Mínimo': min(self.datos),
+            'Máximo': max(self.datos)
+        }
         return res_num
 
     def muestra_resumen(self):
-      for estad, valor in res_num.items():
-        print(f"{estad}: {np.round(valor,3)}")
+        """
+        Muestra el resumen numérico de los datos en la consola.
+        """
+        res_num = self.generacion_resumen_numerico()
+        for estad, valor in res_num.items():
+            print(f"{estad}: {np.round(valor,3)}")
 
 
 class ResumenGrafico:
+    """
+    Clase para generar y evaluar histogramas y gráficos QQ de un conjunto de datos.
+
+    Atributos:
+        datos (np.ndarray): El conjunto de datos para el que se generan los gráficos.
+    """
     def __init__(self, datos):
+        """
+        Inicializa la clase ResumenGrafico con el conjunto de datos.
+
+        Args:
+            datos (array-like): Datos de entrada.
+        """
         self.datos = np.array(datos)
 
     def generacion_histograma(self, h):
+        """
+        Genera un histograma para los datos con el ancho de bin especificado.
+
+        Args:
+            h (float): Ancho del bin.
+
+        Returns:
+            tuple: Bins y frecuencias del histograma.
+        """
         minimo = np.min(self.datos)
         maximo = np.max(self.datos)
         n = len(self.datos)
@@ -65,10 +135,19 @@ class ResumenGrafico:
                     break
 
         frec /= (n*h)
-
         return bins, frec
 
     def evaluacion_histograma(self, h, x):
+        """
+        Evalúa la densidad del histograma en los puntos especificados.
+
+        Args:
+            h (float): Ancho del bin.
+            x (array-like): Puntos en los que se evaluará la densidad.
+
+        Returns:
+            np.ndarray: Densidad evaluada en los puntos x.
+        """
         bins, frec = self.generacion_histograma(h)
         restx = np.zeros((len(x),))
 
@@ -80,38 +159,78 @@ class ResumenGrafico:
         return restx
 
     def kernel_gaussiano(self, x):
-        # Kernel gaussiano estándar
+        """
+        Kernel gaussiano estándar.
+
+        Args:
+            x (float): Punto de evaluación.
+
+        Returns:
+            float: Valor del kernel gaussiano.
+        """
         valor_kernel_gaussiano = (1/(np.sqrt(2*np.pi)))*np.exp(-0.5*x**2)
-        ## Completar
         return valor_kernel_gaussiano
 
     def kernel_uniforme(self, x):
-        # Kernel uniforme
+        """
+        Kernel uniforme.
+
+        Args:
+            x (float): Punto de evaluación.
+
+        Returns:
+            float: Valor del kernel uniforme.
+        """
         if np.abs(x) <= 1:
             valor_kernel_uniforme = 0.5
         else:
             valor_kernel_uniforme = 0
-
         return valor_kernel_uniforme
 
     def kernel_cuadratico(self, x):
-      valor_kernel_cuadratico = 3/4 * (1-x**2) if np.abs(x) <= 1 else 0
-      return valor_kernel_cuadratico
+        """
+        Kernel cuadrático.
 
-    def kernel_triangular (self,x):
-      if -1<x<0:
-        valor_kernel_triangular = 1+x
-      elif 0<x<1:
-        valor_kernel_triangular = 1-x
-      else:
-        valor_kernel_triangular = 0
-      return valor_kernel_triangular
+        Args:
+            x (float): Punto de evaluación.
 
+        Returns:
+            float: Valor del kernel cuadrático.
+        """
+        valor_kernel_cuadratico = 3/4 * (1-x**2) if np.abs(x) <= 1 else 0
+        return valor_kernel_cuadratico
+
+    def kernel_triangular(self, x):
+        """
+        Kernel triangular.
+
+        Args:
+            x (float): Punto de evaluación.
+
+        Returns:
+            float: Valor del kernel triangular.
+        """
+        if -1 < x < 0:
+            valor_kernel_triangular = 1 + x
+        elif 0 < x < 1:
+            valor_kernel_triangular = 1 - x
+        else:
+            valor_kernel_triangular = 0
+        return valor_kernel_triangular
 
     def mi_densidad(self, x, data, h, kernel):
-        # x: Puntos en los que se evaluará la densidad
-        # data: Datos
-        # h: Ancho de la ventana (bandwidth)
+        """
+        Calcula la densidad usando el estimador de núcleo especificado.
+
+        Args:
+            x (array-like): Puntos en los que se evaluará la densidad.
+            data (array-like): Datos.
+            h (float): Ancho de la ventana (bandwidth).
+            kernel (str): Tipo de kernel a usar ("gaussiano", "uniforme", "cuadratico", "triangular").
+
+        Returns:
+            np.ndarray: Densidad evaluada en los puntos x.
+        """
         densidad = np.zeros(len(x))
 
         for i in range(len(x)):
@@ -131,27 +250,28 @@ class ResumenGrafico:
         return densidad
 
     def miqqplot(self):
+        """
+        Genera un gráfico QQ (quantile-quantile plot) para comparar la distribución de los datos con una distribución normal.
+        """
+        media = np.mean(self.datos)
+        desvio = np.std(self.datos)
 
-      media = np.mean(self.datos)
-      desvio = np.std(self.datos)
+        x_ord = np.sort(self.datos)
+        x_ord_s = (x_ord - media) / desvio
+        n = len(self.datos)
 
-      x_ord = np.sort(self.datos)
-      x_ord_s = (x_ord - media) / desvio
-      n = len(self.datos)
+        cuantiles_teoricos = []
 
-      cuantiles_teoricos = []
+        for p in range(1, n+1):
+            pp = p/(n+1)  # convierte lista en decimales
+            valor_cuantil = norm.ppf(pp)
+            cuantiles_teoricos.append(valor_cuantil)
 
-      for p in range(1,n+1):
-        pp = p/(n+1) #convierte lista en decimales
-        valor_cuantil = norm.ppf(pp)
-        cuantiles_teoricos.append(valor_cuantil)
-
-
-      plt.scatter(cuantiles_teoricos, x_ord_s, color='blue', marker='o')
-      plt.xlabel('Cuantiles teóricos')
-      plt.ylabel('Cuantiles muestrales')
-      plt.plot(cuantiles_teoricos, cuantiles_teoricos, linestyle='-', color='red')
-      plt.show()
+        plt.scatter(cuantiles_teoricos, x_ord_s, color='blue', marker='o')
+        plt.xlabel('Cuantiles teóricos')
+        plt.ylabel('Cuantiles muestrales')
+        plt.plot(cuantiles_teoricos, cuantiles_teoricos, linestyle='-', color='red')
+        plt.show()
 
 
 class GeneradoraDeDatos:
@@ -167,22 +287,8 @@ class GeneradoraDeDatos:
         return distribucion
 
     def generar_datos_dist_BS(self):
-        u = np.random.uniform(size=(self.n,))
-        y = u.copy()
-        ind = np.where(u > 0.5)[0]
-        y[ind] = np.random.normal(0, 1, size=len(ind))
-        for j in range(5):
-            ind = np.where((u > j * 0.1) & (u <= (j+1) * 0.1))[0]
-            y[ind] = np.random.normal(j/2 - 1, 1/10, size=len(ind))
-        return y
+        u = np.random.uniform(size=(self
 
-    def f_bs(x):
-        phi = norm.pdf
-        return 0.5 * phi(x, 0, 1) + 0.1 * sum([phi(x, j/2 - 1, 1/10) for j in range(5)])
-
-    def generar_datos_uniforme(self, min, max):
-        datos = np.random.uniform(min, max, self.n)
-        return datos
 
 
 class Regresion:
