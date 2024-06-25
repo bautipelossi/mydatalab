@@ -274,9 +274,6 @@ class ResumenGrafico:
         plt.show()
 
 
-import numpy as np
-from scipy.stats import norm
-
 class GeneradoraDeDatos:
     """
     Clase que genera datos con diferentes distribuciones.
