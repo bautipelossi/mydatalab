@@ -584,7 +584,7 @@ class Cualitativas:
         self.n = sum(observados)  # Sumar los observados para calcular los esperados
 
         # Verificar que las probabilidades sumen 1
-        if not np.isclose(sum(self.p), 1):
+        if not np.isclose(sum(self.p), 1.0):
             raise ValueError("Las probabilidades deben ser una lista de números que sumen 1.")
 
         # Verificar que las longitudes de observados y probabilidades sean iguales
