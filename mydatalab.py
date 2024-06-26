@@ -273,22 +273,6 @@ class ResumenGrafico:
         plt.plot(cuantiles_teoricos, cuantiles_teoricos, linestyle='-', color='red')
         plt.show()
 
-    def Homocedasticidad(self, residuos):
-        """
-        Realiza el gráfico de predichos vs residuos para evaluar la aleatoriedad del error
-        el cual es uno de los supuestos de la distribucion de los errores en el modelo de 
-        regresion lineal.
-        Argumentos:
-            self: los valores predichos (estimados por el modelo de regresion lineal).
-            residuos: residuos del modelo ajustado de regresion lineal 
-        """
-        plt.scatter(self.datos, residuos)
-        plt.axhline(y=0, color='r', linestyle='--')  # Línea horizontal en y=0 para facilitar la visualización de los residuos
-        plt.xlabel('Valores predichos')
-        plt.ylabel('Residuos')
-        plt.title('Gráfico de Residuos vs. Valores Predichos')
-        plt.ylim(-4,4)
-        plt.show()
 
 
 class GeneradoraDeDatos:
