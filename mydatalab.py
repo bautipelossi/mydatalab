@@ -593,7 +593,8 @@ class Cualitativas:
 
     def chi_cuadrado(self):
         """
-        Calcula el estadístico Chi Cuadrado
+        Calcula el estadístico Chi Cuadrado observado
+        x2_obs = (O_i - E_i)**2 / E_i ; i = 1,...,n.
         """
         self.estadistico = np.sum((np.array(self.observados) - np.array(self.esperados)) ** 2 / np.array(self.esperados))
         return self.estadistico
@@ -602,6 +603,7 @@ class Cualitativas:
         """
         Calcula el valor crítico del estadístico (el cual no debe superar)
         En la entrada se debe agregar como parámetro el alfa correspondiente.
+        Si x2_observado > x2_alfa se rechaza H_0. 
         """
         self.df = len(self.observados) - 1  # grados de libertad
         percentil_chi2 = chi2.ppf(q=1 - alpha, df=self.df)
