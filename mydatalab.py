@@ -574,7 +574,7 @@ class Cualitativas:
         """
         Test de bondad de ajuste mediante Método de Chi Cuadrado
         Entradas: observados = datos muestrales
-                  probabilidades teóricas bajo la hipótesis nula
+                  probabilidades = probabilidades teóricas bajo la hipótesis nula (valores esperados bajo H_0)
         """
         self.observados = observados
         self.p = probabilidades
