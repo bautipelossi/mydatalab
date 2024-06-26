@@ -279,7 +279,7 @@ class ResumenGrafico:
         el cual es uno de los supuestos de la distribucion de los errores en el modelo de 
         regresion lineal.
         Argumentos:
-            predichos: los valores de la variable independiente y
+            predichos: los valores estimados por el modelo de regresion lineal
             residuos: residuos del modelo ajustado de regresion lineal 
         """
         plt.scatter(predichos, residuos)
