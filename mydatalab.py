@@ -571,7 +571,6 @@ class RegresionLogistica(Regresion):
         return miRLog.predict(X_new)
 
    
-  
 class Cualitativas:
     def __init__(self, observados, probabilidades):
         """
