@@ -576,8 +576,9 @@ class Cualitativas:
     def __init__(self, observados, probabilidades):
         """
         Test de bondad de ajuste mediante Método de Chi Cuadrado
-        Entradas: observados = datos muestrales
-                  probabilidades = probabilidades teóricas bajo la hipótesis nula (valores esperados bajo H_0)
+        Entradas:
+        - observados: lista de datos muestrales observados
+        - probabilidades: lista de probabilidades teóricas bajo la hipótesis nula (valores esperados bajo H_0)
         """
         self.observados = observados
         self.p = probabilidades
@@ -592,12 +593,12 @@ class Cualitativas:
             raise ValueError("Probabilidades y observados deben tener igual tamaño.")
 
         # Calcular los esperados
-        self.esperados = [self.n * p for p in probabilidades]
+        self.esperados = np.array(self.p) * self.n
 
     def chi_cuadrado(self):
         """
         Calcula el estadístico Chi Cuadrado observado
-        x2_obs = (O_i - E_i)**2 / E_i ; i = 1,...,n.
+        x2_obs = sum((O_i - E_i)**2 / E_i) ; i = 1,...,n.
         """
         self.estadistico = np.sum((np.array(self.observados) - np.array(self.esperados)) ** 2 / np.array(self.esperados))
         return self.estadistico
