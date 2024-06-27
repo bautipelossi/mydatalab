@@ -5,7 +5,7 @@ Data Science - Universidad Nacional del Litoral
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import norm
+from scipy.stats import norm, chi2
 import statsmodels.api as sm
 import pandas as pd
 
